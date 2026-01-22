@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Alma · Mente · Corazón</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #0f0f0f;
+  color: #f5f5f5;
+  max-width: 750px;
+  margin: auto;
+  padding: 30px;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+.box {
+  background: #1a1a1a;
+  padding: 25px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+}
+
+button {
+  background: #ffffff;
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 10px 5px;
+}
+
+button:hover { background: #f4a300; }
+
+.hidden { display: none; }
+
+.resultado {
+  margin-top: 20px;
+  padding: 20px;
+  background: #000;
+  border-radius: 10px;
+  font-size: 18px;
+  text-align: center;
+}
+
+input[type="text"],
+input[type="tel"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  margin: 8px 0 15px 0;
+  border-radius: 5px;
+  border: none;
+}
+
+input[type="radio"] {
+  width: auto;
+  display: inline-block;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.menu-item {
+  border-bottom: 1px solid #333;
+  padding: 10px 0;
+}
+
+.pedido-lista {
+  background: #000;
+  padding: 15px;
+  border-radius: 10px;
+  white-space: pre-line;
+}
+</style>
+</head>
+
+<body>
+
+<h1>ALMA · MENTE · CORAZÓN</h1>
+<h2>¿Cómo quieres elegir tu hamburguesa hoy?</h2>
+
+<div class="box" id="inicio">
+  <button onclick="mostrar('personalidad')">Según mi personalidad</button>
+  <button onclick="mostrar('animo')">Según mi estado de ánimo</button>
+  <button onclick="mostrar('menu')">Ver menú sin test</button>
+</div>
+
+<!-- TEST PERSONALIDAD -->
+<div id="personalidad" class="box hidden">
+<h2>Test de Personalidad</h2>
+
+<form id="formPersonalidad">
+
+<p>1. Cuando eliges comida normalmente tú eres más:</p>
+<input type="radio" name="p1" value="clasico"> Siempre voy a lo seguro<br>
+<input type="radio" name="p1" value="creativo"> Me gusta probar cosas nuevas<br>
+<input type="radio" name="p1" value="equilibrado"> Depende del día<br>
+<input type="radio" name="p1" value="equilibrado"> Me dejo recomendar<br>
+
+<p>2. En tu forma de ser tú eres más:</p>
+<input type="radio" name="p2" value="clasico"> Tranquilo y estable<br>
+<input type="radio" name="p2" value="intenso"> Intenso y apasionado<br>
+<input type="radio" name="p2" value="creativo"> Creativo y curioso<br>
+<input type="radio" name="p2" value="equilibrado"> Práctico y directo<br>
+
+<p>3. Cuando sales a comer buscas principalmente:</p>
+<input type="radio" name="p3" value="clasico"> Sentirme cómodo<br>
+<input type="radio" name="p3" value="creativo"> Sorprenderme<br>
+<input type="radio" name="p3" value="equilibrado"> Sabores bien hechos<br>
+<input type="radio" name="p3" value="equilibrado"> Rápido pero bien<br>
+
+<p>4. Tus sabores favoritos suelen ser más:</p>
+<input type="radio" name="p4" value="clasico"> Clásicos<br>
+<input type="radio" name="p4" value="intenso"> Intensos<br>
+<input type="radio" name="p4" value="creativo"> Dulce–salado<br>
+<input type="radio" name="p4" value="intenso"> Picantes / fuertes<br>
+
+<p>5. ¿Cómo te defines mejor?</p>
+<input type="radio" name="p5" value="clasico"> Tradicional<br>
+<input type="radio" name="p5" value="creativo"> Arriesgado<br>
+<input type="radio" name="p5" value="equilibrado"> Sensible<br>
+<input type="radio" name="p5" value="equilibrado"> Analítico<br>
+
+<button type="button" onclick="calcularPersonalidad()">Ver mi hamburguesa</button>
+</form>
+
+<div id="resultadoPersonalidad" class="resultado"></div>
+
+<div id="pedidoTest" class="hidden">
+<h3>Enviar pedido</h3>
+<input type="text" id="nombreTest" placeholder="Nombre">
+<input type="tel" id="telefonoTest" placeholder="Teléfono">
+<textarea id="direccionTest" rows="3" placeholder="Dirección completa"></textarea>
+<button onclick="enviarPedidoTest()">Enviar por WhatsApp</button>
+</div>
+</div>
+
+<!-- TEST ANIMO -->
+<div id="animo" class="box hidden">
+<h2>Test de Estado de Ánimo</h2>
+
+<form id="formAnimo">
+
+<p>1. Hoy te sientes más…</p>
+<input type="radio" name="a1" value="energia"> Feliz / animado<br>
+<input type="radio" name="a1" value="reconfort"> Cansado<br>
+<input type="radio" name="a1" value="calma"> Estresado<br>
+<input type="radio" name="a1" value="reconfort"> Triste / sensible<br>
+
+<p>2. Hoy tu cuerpo necesita más…</p>
+<input type="radio" name="a2" value="energia"> Energía<br>
+<input type="radio" name="a2" value="reconfort"> Consuelo<br>
+<input type="radio" name="a2" value="indulgencia"> Placer<br>
+<input type="radio" name="a2" value="calma"> Algo ligero<br>
+
+<p>3. Tu día hoy ha sido…</p>
+<input type="radio" name="a3" value="energia"> Excelente<br>
+<input type="radio" name="a3" value="reconfort"> Largo<br>
+<input type="radio" name="a3" value="calma"> Pesado<br>
+<input type="radio" name="a3" value="calma"> Normal<br>
+
+<p>4. Ahora mismo tú quieres…</p>
+<input type="radio" name="a4" value="energia"> Celebrar<br>
+<input type="radio" name="a4" value="reconfort"> Relajarme<br>
+<input type="radio" name="a4" value="calma"> Desconectarme<br>
+<input type="radio" name="a4" value="calma"> Comer bien<br>
+
+<button type="button" onclick="calcularAnimo()">Ver mi hamburguesa</button>
+</form>
+
+<div id="resultadoAnimo" class="resultado"></div>
+
+<div id="pedidoAnimo" class="hidden">
+<h3>Enviar pedido</h3>
+<input type="text" id="nombreAnimo" placeholder="Nombre">
+<input type="tel" id="telefonoAnimo" placeholder="Teléfono">
+<textarea id="direccionAnimo" rows="3" placeholder="Dirección completa"></textarea>
+<button onclick="enviarPedidoAnimo()">Enviar por WhatsApp</button>
+</div>
+</div>
+
+<!-- MENÚ -->
+<div id="menu" class="box hidden">
+<h2>Menú</h2>
+
+<div class="menu-item"><strong>LA ESENCIA</strong><br><button onclick="agregar('LA ESENCIA')">Agregar</button></div>
+<div class="menu-item"><strong>LA INSPIRACIÓN</strong><br><button onclick="agregar('LA INSPIRACIÓN')">Agregar</button></div>
+<div class="menu-item"><strong>LA FUEGO</strong><br><button onclick="agregar('LA FUEGO')">Agregar</button></div>
+<div class="menu-item"><strong>LA ARMONÍA</strong><br><button onclick="agregar('LA ARMONÍA')">Agregar</button></div>
+<div class="menu-item"><strong>LA POTENCIA</strong><br><button onclick="agregar('LA POTENCIA')">Agregar</button></div>
+<div class="menu-item"><strong>LA ABRAZO</strong><br><button onclick="agregar('LA ABRAZO')">Agregar</button></div>
+<div class="menu-item"><strong>LA CALMA</strong><br><button onclick="agregar('LA CALMA')">Agregar</button></div>
+<div class="menu-item"><strong>LA PECADO</strong><br><button onclick="agregar('LA PECADO')">Agregar</button></div>
+
+<h3>Pedido actual</h3>
+<div id="listaPedido" class="pedido-lista">Aún no has agregado hamburguesas.</div>
+
+<h3>Datos del cliente</h3>
+<input type="text" id="nombreMenu" placeholder="Nombre">
+<input type="tel" id="telefonoMenu" placeholder="Teléfono">
+<textarea id="direccionMenu" rows="3" placeholder="Dirección completa"></textarea>
+<textarea id="obsMenu" rows="3" placeholder="Observaciones"></textarea>
+
+<button onclick="enviarPedidoMenu()">Enviar pedido por WhatsApp</button>
+</div>
+
+<script>
+let pedido = [];
+let hamburguesaElegida = '';
+
+function mostrar(id) {
+  document.getElementById('personalidad').classList.add('hidden');
+  document.getElementById('animo').classList.add('hidden');
+  document.getElementById('menu').classList.add('hidden');
+  document.getElementById(id).classList.remove('hidden');
+}
+
+function calcularPersonalidad() {
+  const perfiles = { clasico: 0, creativo: 0, intenso: 0, equilibrado: 0 };
+  const respuestas = document.querySelectorAll('#formPersonalidad input:checked');
+  respuestas.forEach(r => perfiles[r.value]++);
+  let perfilFinal = Object.keys(perfiles).reduce((a, b) => perfiles[a] > perfiles[b] ? a : b);
+
+  if (perfilFinal === 'clasico') hamburguesaElegida = 'LA ESENCIA';
+  if (perfilFinal === 'creativo') hamburguesaElegida = 'LA INSPIRACIÓN';
+  if (perfilFinal === 'intenso') hamburguesaElegida = 'LA FUEGO';
+  if (perfilFinal === 'equilibrado') hamburguesaElegida = 'LA ARMONÍA';
+
+  document.getElementById('resultadoPersonalidad').innerText =
+    'Tu hamburguesa es: ' + hamburguesaElegida;
+
+  document.getElementById('pedidoTest').classList.remove('hidden');
+}
+
+function calcularAnimo() {
+  const estados = { energia: 0, reconfort: 0, calma: 0, indulgencia: 0 };
+  const respuestas = document.querySelectorAll('#formAnimo input:checked');
+  respuestas.forEach(r => estados[r.value]++);
+  let estadoFinal = Object.keys(estados).reduce((a, b) => estados[a] > estados[b] ? a : b);
+
+  if (estadoFinal === 'energia') hamburguesaElegida = 'LA FUEGO';
+  if (estadoFinal === 'reconfort') hamburguesaElegida = 'LA ESENCIA';
+  if (estadoFinal === 'calma') hamburguesaElegida = 'LA ARMONÍA';
+  if (estadoFinal === 'indulgencia') hamburguesaElegida = 'LA INSPIRACIÓN';
+
+  document.getElementById('resultadoAnimo').innerText =
+    'Tu hamburguesa es: ' + hamburguesaElegida;
+
+  document.getElementById('pedidoAnimo').classList.remove('hidden');
+}
+
+function enviarPedidoTest() {
+  const nombre = nombreTest.value;
+  const telefono = telefonoTest.value;
+  const direccion = direccionTest.value;
+
+  let mensaje = 'Pedido por test%0A';
+  mensaje += 'Hamburguesa: ' + hamburguesaElegida + '%0A';
+  mensaje += 'Nombre: ' + nombre + '%0A';
+  mensaje += 'Teléfono: ' + telefono + '%0A';
+  mensaje += 'Dirección: ' + direccion;
+
+  window.open('https://wa.me/573152190194?text=' + mensaje, '_blank');
+}
+
+function enviarPedidoAnimo() {
+  const nombre = nombreAnimo.value;
+  const telefono = telefonoAnimo.value;
+  const direccion = direccionAnimo.value;
+
+  let mensaje = 'Pedido por ánimo%0A';
+  mensaje += 'Hamburguesa: ' + hamburguesaElegida + '%0A';
+  mensaje += 'Nombre: ' + nombre + '%0A';
+  mensaje += 'Teléfono: ' + telefono + '%0A';
+  mensaje += 'Dirección: ' + direccion;
+
+  window.open('https://wa.me/573152190194?text=' + mensaje, '_blank');
+}
+
+function agregar(nombre) {
+  pedido.push(nombre);
+  actualizarLista();
+}
+
+function actualizarLista() {
+  let conteo = {};
+  pedido.forEach(h => conteo[h] = (conteo[h] || 0) + 1);
+
+  let texto = '';
+  for (let h in conteo) {
+    texto += conteo[h] + ' x ' + h + '\n';
+  }
+
+  document.getElementById('listaPedido').innerText =
+    texto || 'Aún no has agregado hamburguesas.';
+}
+
+function enviarPedidoMenu() {
+  const nombre = nombreMenu.value;
+  const telefono = telefonoMenu.value;
+  const direccion = direccionMenu.value;
+  const obs = obsMenu.value;
+
+  let conteo = {};
+  pedido.forEach(h => conteo[h] = (conteo[h] || 0) + 1);
+
+  let lista = '';
+  for (let h in conteo) {
+    lista += conteo[h] + ' x ' + h + '%0A';
+  }
+
+  let mensaje = 'Pedido sin test%0A';
+  mensaje += 'Nombre: ' + nombre + '%0A';
+  mensaje += 'Teléfono: ' + telefono + '%0A';
+  mensaje += 'Dirección: ' + direccion + '%0A%0A';
+  mensaje += 'Hamburguesas:%0A' + lista + '%0A';
+  mensaje += 'Observaciones: ' + obs;
+
+  window.open('https://wa.me/573152190194?text=' + mensaje, '_blank');
+}
+</script>
+
+</body>
+</html>
